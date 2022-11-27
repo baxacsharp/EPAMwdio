@@ -8,22 +8,21 @@ class AddPastePage extends BasePage {
   async enter_url(theUrl) {
     await this.go_to_link(theUrl)
   }
-  async isAgreeButtonDisplayed() {
-    let button = ".qc-cmp2-summary-buttons button:last-child"
-    await this.isDisplayed(button)
-  }
-  async clickAgreeButton() {
-    let button = ".qc-cmp2-summary-buttons button:last-child"
-    await this.clickButton(button)
-  }
+
   async writeNewPaste(writeText) {
     let locatorOfTextArea = "#postform-text"
     await this.enterText(locatorOfTextArea, writeText)
   }
-  async clickDropdownButton() {
+  async clickPasteExpirationDropdown() {
     let selectButton = "span#select2-postform-expiration-container"
     await this.clickDropdown(selectButton)
-    let selectedChoice = "#select2-postform-expiration-result-2er2-10M"
+    let selectedChoice = "li.select2-results__option:nth-of-type(3)"
+    await this.clickButton(selectedChoice)
+  }
+  async clickSyntaxChoice() {
+    let selectButton = "span#select2-postform-format-container"
+    await this.clickDropdown(selectButton)
+    let selectedChoice = "li.select2-results__option:nth-of-type(2)"
     await this.clickButton(selectedChoice)
   }
 
@@ -31,11 +30,14 @@ class AddPastePage extends BasePage {
     let locatorOfTitleArea = "#postform-name"
     await this.enterText(locatorOfTitleArea, writeText)
   }
-  // get newPasteTextArea() {
-  //   return $("#postform-text")
-  // }
-  // async createNewPaste() {
-  //   await this.newPasteTextArea.sendKeys("Hello from WebDriver")
-  // }
+  async clickSubmitButton() {
+    let locator = ".form-btn-container"
+    await this.clickButton(locator)
+  }
+  async clickNewPasteButton() {
+    let locator = ".header__btn"
+    await this.clickButton(locator)
+  }
 }
+
 export default new AddPastePage()
